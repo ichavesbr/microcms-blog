@@ -1,5 +1,5 @@
 import { client } from "@/libs/client"
-import { Contents } from "@/types/api"
+import { Contents } from "@/types/microcms"
 
 export default async function Home() {
   const data = await client.get({ endpoint: "blogs" })
