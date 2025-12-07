@@ -1,4 +1,4 @@
-export type Contents = {
+export type Props = {
   id: string
   createdAt: string
   updatedAt: string

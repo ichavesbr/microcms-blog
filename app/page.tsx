@@ -1,5 +1,5 @@
 import { client } from "@/libs/microcms"
-import { Contents } from "@/types/microcms"
+import { Props } from "@/types/microcms"
 
 export default async function Home() {
   const data = await client.get({ endpoint: "blogs" })
@@ -10,7 +10,7 @@ export default async function Home() {
       <h1>Welcome</h1>
       <h2>To this blog</h2>
       <div>
-        {data.contents.map((a: Contents) => (
+        {data.contents.map((a: Props) => (
           <ul key={a.id}>
             <li>{a.title}</li>
             <li>{JSON.stringify(a.content)}</li>
