@@ -1,8 +1,9 @@
-import { client } from "@/libs/microcms"
 import { Props } from "@/types/microcms"
+import fetchData from "@/libs/fetchData"
+import Link from "next/link"
 
 export default async function Home() {
-  const data = await client.get({ endpoint: "blogs" })
+  const data = await fetchData()
 
   return (
     <div>
@@ -13,6 +14,7 @@ export default async function Home() {
         {data.contents.map((a: Props) => (
           <ul key={a.id}>
             <li>{a.title}</li>
+            <Link href={`/blog/`}>Read More</Link>
             {/* previne ataques XSS  */}
             <div dangerouslySetInnerHTML={{ __html: a.content }} />
           </ul>
