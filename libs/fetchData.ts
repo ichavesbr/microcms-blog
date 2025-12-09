@@ -1,4 +1,4 @@
-import { client } from "@/libs/microcms"
+import { client } from "@/libs/client"
 
 const fetchData = async () => {
   try {

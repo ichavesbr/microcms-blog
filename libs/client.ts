@@ -15,10 +15,3 @@ export const client = createClient({
   serviceDomain: process.env.MICROCMS_SERVICE_DOMAIN || "",
   apiKey: process.env.MICROCMS_API_KEY || "",
 })
-
-
-// este arquivo configura o client para buscar dados do microcms
-// um nome ideial para este arquivo seria microcmsClient.ts ou similar tal quais as 3 op;:oes abaixo:
-// libs/microcmsClient.ts
-// libs/microcms-client.ts
-// libs/microcms/client.ts
