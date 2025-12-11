@@ -4,6 +4,12 @@ import Link from "next/link"
 import { Props } from "@/types/microcms"
 import { notFound } from "next/navigation"
 
+// transforma paginas dinamicas em estaticas no momento do build
+export const generateStaticParams = async () => {
+  const data = await fetchData()
+  return data.contents.map((item: Props) => ({ slug: removeSpace(item.name) }))
+}
+
 const Character = async ({ params }: { params: Promise<{ slug: string }> }) => {
   const { slug } = await params
   const data = await fetchData()
