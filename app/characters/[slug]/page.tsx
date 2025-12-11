@@ -2,11 +2,16 @@ import fetchData from "@/libs/fetchData"
 import removeSpace from "@/libs/removeSpace"
 import Link from "next/link"
 import { Props } from "@/types/microcms"
+import { notFound } from "next/navigation"
 
 const Character = async ({ params }: { params: Promise<{ slug: string }> }) => {
   const { slug } = await params
   const data = await fetchData()
-  const { name, title, content } = data.contents.find((item: Props) => removeSpace(item.name) === slug)
+
+  const character = data.contents.find((item: Props) => removeSpace(item.name) === slug)
+  //check if URL/slug is same as name, if not return 404 page
+  if (!character) notFound()
+  const { name, title, content } = character
 
   return (
     <div>
