@@ -1,5 +1,5 @@
 import fetchData from "@/libs/fetchData"
-import { Props } from "@/types/microcms"
+import { APIProps } from "@/types/microcms"
 import Image from "next/image"
 import Link from "next/link"
 
@@ -10,7 +10,7 @@ const Blog = async () => {
       <h1>PAGINA DO BLOG</h1>
       <Link href="/blog/post1">Ir para meu primeiro post</Link>
 
-      {data.contents.map((a: Props) => (
+      {data.contents.map((a: APIProps) => (
         <ul key={a.id}>
           <h1>{a.title}</h1>
           <Link href={`/blog/`}>Read More</Link>

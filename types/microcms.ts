@@ -1,4 +1,4 @@
-export type Props = {
+export type APIProps = {
   id: string
   name: string
   createdAt: string
