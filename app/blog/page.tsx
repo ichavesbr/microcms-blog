@@ -5,19 +5,25 @@ import Link from "next/link"
 
 const Blog = async () => {
   const data = await fetchData()
+
   return (
     <div>
       <h1>PAGINA DO BLOG</h1>
-      <Link href="/blog/post1">Ir para meu primeiro post</Link>
+      {/* <Link href="/blog/post1">Ir para meu primeiro post</Link> */}
 
       {data.contents.map((a: APIProps) => (
         <ul key={a.id}>
           <h1>{a.title}</h1>
-          <Link href={`/blog/`}>Read More</Link>
+          <Link href={`/blog`}>Read More</Link>
           {/* previne ataques XSS  */}
           <div dangerouslySetInnerHTML={{ __html: a.content }} />
 
-          <Image src={a.eyecatch.url} alt={a.title} width={300} height={400} />
+          {/* verifica se existe eyecatch na api */}
+          {a.eyecatch ? (
+            <Image src={a.eyecatch?.url} alt={a.title} width={300} height={400} />
+          ) : (
+            <p>No image available</p>
+          )}
         </ul>
       ))}
     </div>
