@@ -11,4 +11,3 @@ const fetchData = async () => {
 }
 
 export default fetchData
-// TRATAR ERRO quando qualquer campo da API vier undefined (nao ha algum dado)

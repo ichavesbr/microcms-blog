@@ -12,4 +12,7 @@ export type APIProps = {
     width: number
     height: number
   }
+  category: {
+    name: string
+  }
 }
