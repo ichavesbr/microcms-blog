@@ -7,6 +7,7 @@ import { notFound } from "next/navigation"
 // transforma paginas dinamicas em estaticas no momento do build
 export const generateStaticParams = async () => {
   const data = await fetchData()
+  //ha um problema aqui. Se alguma propriedade da API for nula, nao renderiza o item.
   return data.contents.map((item: APIProps) => ({ slug: removeSpace(item.name) }))
 }
 
