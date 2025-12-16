@@ -5,8 +5,11 @@ import { APIProps } from "@/types/microcms"
 import { notFound } from "next/navigation"
 
 // transforma paginas dinamicas em estaticas no momento do build
+// revalida a API a cada 60 segundos
+export const revalidate = 60
 export const generateStaticParams = async () => {
   const data = await fetchData()
+
   //ha um problema aqui. Se alguma propriedade da API for nula, nao renderiza o item.
   return data.contents.map((item: APIProps) => ({ slug: removeSpace(item.name) }))
 }
