@@ -1,8 +1,8 @@
+import NotAvailable from "@/components/NotAvailable"
 import fetchData from "@/libs/fetchData"
 import { APIProps } from "@/types/microcms"
 import Image from "next/image"
 
-const NotAvailable = () => <p>Data is not available</p>
 const CategoryBtn = ({ category }: { category: string }) =>
   category ? <button className="py-1 px-4 bg-amber-500 rounded-2xl flex">{category}</button> : null
 

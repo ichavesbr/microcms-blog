@@ -4,6 +4,7 @@ import Link from "next/link"
 import { APIProps } from "@/types/microcms"
 import { notFound } from "next/navigation"
 import Image from "next/image"
+import NotAvailable from "@/components/NotAvailable"
 
 // transforma paginas dinamicas em estaticas no momento do build
 // revalida a API a cada 60 segundos
@@ -31,7 +32,7 @@ const Character = async ({ params }: { params: Promise<{ slug: string }> }) => {
       {/* por algum motivo se encapsular com tag <p> da erro de hidratacao. Mas <div> funciona ok */}
       <div dangerouslySetInnerHTML={{ __html: content }} />
 
-      <Image src={eyecatch.url} alt={title} width={300} height={400} />
+      {eyecatch ? <Image src={eyecatch.url} alt={title} width={300} height={400} /> : <NotAvailable />}
 
       <button>
         <Link href="/characters">BACK</Link>
