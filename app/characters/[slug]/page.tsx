@@ -3,6 +3,7 @@ import removeSpace from "@/libs/removeSpace"
 import Link from "next/link"
 import { APIProps } from "@/types/microcms"
 import { notFound } from "next/navigation"
+import Image from "next/image"
 
 // transforma paginas dinamicas em estaticas no momento do build
 // revalida a API a cada 60 segundos
@@ -21,14 +22,16 @@ const Character = async ({ params }: { params: Promise<{ slug: string }> }) => {
   const character = data.contents.find((item: APIProps) => removeSpace(item.name) === slug)
   //check if URL/slug is same as name, if not return 404 page
   if (!character) notFound()
-  const { name, title, content } = character
+  const { name, title, content, eyecatch } = character
 
   return (
     <div>
       <h1>{name} - Page</h1>
       <p>{title}</p>
       {/* por algum motivo se encapsular com tag <p> da erro de hidratacao. Mas <div> funciona ok */}
-      <div dangerouslySetInnerHTML={{ __html: content }}></div>
+      <div dangerouslySetInnerHTML={{ __html: content }} />
+
+      <Image src={eyecatch.url} alt={title} width={300} height={400} />
 
       <button>
         <Link href="/characters">BACK</Link>
