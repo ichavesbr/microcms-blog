@@ -1,8 +1,12 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from "next"
 
 const nextConfig: NextConfig = {
-  /* config options here */
   reactCompiler: true,
-};
 
-export default nextConfig;
+  // adiciona regra para aceitar imagens deste domínio específico do microCMS
+  images: {
+    remotePatterns: [new URL("https://images.microcms-assets.io/**")],
+  },
+}
+
+export default nextConfig
