@@ -5,6 +5,8 @@ import { APIProps } from "@/types/microcms"
 import { notFound } from "next/navigation"
 import Image from "next/image"
 import NotAvailable from "@/components/NotAvailable"
+import { chango } from "@/app/layout"
+import { albertSans } from "@/app/layout"
 
 // transforma paginas dinamicas em estaticas no momento do build
 // revalida a API a cada 60 segundos
@@ -26,9 +28,13 @@ const Character = async ({ params }: { params: Promise<{ slug: string }> }) => {
   const { name, title, content, eyecatch } = character
 
   return (
-    <div>
-      <h1>{name} - Page</h1>
-      <p>{title}</p>
+    <div className={`${albertSans.className}`}>
+      <div className="h-96 bg-amber-300">
+        <h1 className={`pt-40 text-center text-6xl ${chango.className} tracking-widest`}>{name.toUpperCase()}</h1>
+      </div>
+      <div className="h-14 bg-amber-950"></div>
+      <h1 className="text-4xl">{title}</h1>
+
       {/* por algum motivo se encapsular com tag <p> da erro de hidratacao. Mas <div> funciona ok */}
       <div dangerouslySetInnerHTML={{ __html: content }} />
 
