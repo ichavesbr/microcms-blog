@@ -12,6 +12,7 @@ const Blog = async () => {
         <h1>Welcome</h1>
         <div className="flex gap-4 justify-center m-4 flex-wrap">oi</div>
         {dataApi.map((post: APIProps) => {
+          console.log(post)
           const { author, author_img, date, title, content, hashtags } = post
           const hashtagsArray = hashtags ? hashtags.split(",") : []
           const formattedDate = new Date(date).toLocaleDateString("pt-BR", {

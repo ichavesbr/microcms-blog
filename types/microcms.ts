@@ -1,18 +1,17 @@
 export type APIProps = {
   id: string
-  name: string
   createdAt: string
   updatedAt: string
   publishedAt: string
   revisedAt: string
-  title: string
-  content: string
-  eyecatch: {
+  author: string
+  author_img: {
     url: string
     width: number
     height: number
   }
-  category: {
-    name: string
-  }
+  date: string
+  title: string
+  content: string
+  hashtags: string
 }
