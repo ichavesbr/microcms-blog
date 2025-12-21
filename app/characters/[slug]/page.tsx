@@ -1,10 +1,8 @@
+import Image from "next/image"
 import fetchData from "@/libs/fetchData"
 import removeSpace from "@/libs/removeSpace"
-import Link from "next/link"
 import { APIProps } from "@/types/microcms"
 import { notFound } from "next/navigation"
-import Image from "next/image"
-import NotAvailable from "@/components/NotAvailable"
 import { chango } from "@/app/layout"
 import { albertSans } from "@/app/layout"
 
@@ -15,7 +13,7 @@ export const generateStaticParams = async () => {
   const data = await fetchData()
 
   //ha um problema aqui. Se alguma propriedade da API for nula, nao renderiza o item.
-  return data.contents.map((item: APIProps) => ({
+  return data.map((item: APIProps) => ({
     slug: removeSpace(item.name),
   }))
 }
@@ -23,11 +21,13 @@ export const generateStaticParams = async () => {
 const Character = async ({ params }: { params: Promise<{ slug: string }> }) => {
   const { slug } = await params
   const data = await fetchData()
-
-  const character = data.contents.find((item: APIProps) => removeSpace(item.name) === slug)
-  //check if URL/slug is same as name, if not return 404 page
-  if (!character) notFound()
+  const character = data.find((item: APIProps) => removeSpace(item.name) === slug)
+  if (!character) notFound() // check if URL/slug is same as name, if not return 404 page
   const { name, title, content, eyecatch, publishedAt, category } = character
+
+  const myPic = data.map(info => info.pictures.map(pic => pic?.url))
+
+  const myurl = myPic[6][0]
 
   // Formata a data de publicação
   const formattedDate = new Date(publishedAt).toLocaleDateString("pt-BR", {
@@ -39,11 +39,19 @@ const Character = async ({ params }: { params: Promise<{ slug: string }> }) => {
   return (
     <div className={`${albertSans.className} bg-gray-50 min-h-screen`}>
       {/* Hero Section */}
-      <div className="h-48 sm:h-64 md:h-80 lg:h-96 bg-amber-300">
+      <div className="relative h-48 sm:h-64 md:h-80 lg:h-96 bg-amber-300 overflow-visible">
         <h1
           className={`pt-16 sm:pt-24 md:pt-32 lg:pt-40 text-center lg:text-left lg:pl-24 text-3xl sm:text-4xl md:text-5xl lg:text-6xl ${chango.className} tracking-widest`}>
           {name.toUpperCase()}
         </h1>
+        {/* Imagem no Hero - esconde em mobile */}
+        <div className="hidden md:block absolute right-8 lg:right-24 bottom-0 h-[85%]">
+          <Image src={myurl} alt={name} width={800} height={600} className="h-full w-auto rounded-lg shadow-xl" />
+        </div>
+        {/* Imagem esquerda menor - parcialmente sobre a borda marrom */}
+        <div className="absolute left-8 -bottom-2 sm:-bottom-3 lg:-bottom-4 z-10">
+          <Image src={myurl} alt={name} width={800} height={600} className="h-28 w-auto rounded-lg shadow-lg" />
+        </div>
       </div>
       <div className="h-8 sm:h-10 md:h-12 lg:h-14 bg-amber-950"></div>
 
@@ -126,31 +134,6 @@ const Character = async ({ params }: { params: Promise<{ slug: string }> }) => {
               </svg>
             </a>
           </div>
-        </div>
-
-        {/* Botão Ler post */}
-        <div className="mt-12 flex justify-center">
-          <Link
-            href=""
-            className="px-8 py-3 font-medium bg-amber-500 text-white rounded-full hover:bg-amber-600 transition-colors">
-            Ler post
-          </Link>
-        </div>
-
-        {/* Botão voltar */}
-        <div className="mt-8 flex justify-center">
-          <Link
-            href="/characters"
-            className="inline-flex items-center gap-2 px-6 py-3 text-gray-600 font-medium hover:text-gray-900 transition-colors">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-              <path
-                fillRule="evenodd"
-                d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z"
-                clipRule="evenodd"
-              />
-            </svg>
-            Voltar
-          </Link>
         </div>
       </article>
     </div>
