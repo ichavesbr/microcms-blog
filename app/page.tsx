@@ -1,5 +1,3 @@
-// Formata a data de publicação
-
 import fetchData from "@/libs/fetchData"
 import { APIProps } from "@/types/microcms"
 import Image from "next/image"
