@@ -1,37 +1,74 @@
-import NotAvailable from "@/components/NotAvailable"
+import ShareLinks from "@/components/ShareLinks"
 import fetchData from "@/libs/fetchData"
 import { APIProps } from "@/types/microcms"
 import Image from "next/image"
 
-const CategoryBtn = ({ category }: { category: string }) =>
-  category ? <button className="py-1 px-4 bg-amber-500 rounded-2xl flex">{category}</button> : null
-
 const Blog = async () => {
-  const data = await fetchData()
+  const dataApi = await fetchData()
 
   return (
-    <div>
-      <h1 className="text-center text-4xl my-8">SUNRIO CHARACTERS</h1>
+    <>
+      <div>
+        <h1>Welcome</h1>
+        <div className="flex gap-4 justify-center m-4 flex-wrap">oi</div>
+        {dataApi.map((post: APIProps) => {
+          const { author, author_img, date, title, content, hashtags } = post
+          const hashtagsArray = hashtags ? hashtags.split(",") : []
+          const formattedDate = new Date(date).toLocaleDateString("pt-BR", {
+            day: "2-digit",
+            month: "long",
+            year: "numeric",
+          })
 
-      {data.contents.map((a: APIProps) => (
-        <ul key={a.id} className="m-4 p-4 bg-amber-300 border-2">
-          {a.title ? <h1 className="text-4xl">{a.title}</h1> : <NotAvailable />}
+          return (
+            <article key={title} className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+              {/* Título */}
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight">{title}</h1>
 
-          {/* previne ataques XSS - nao recomendado criar componente para isso, deve receber o html da api direto */}
-          {a.content ? <div dangerouslySetInnerHTML={{ __html: a.content }} className="py-4" /> : <NotAvailable />}
+              {/* Autor e data */}
+              <div className="flex items-center gap-3 mb-10 pb-8 border-b border-gray-200">
+                <Image
+                  src={author_img.url}
+                  alt={author}
+                  width={48}
+                  height={48}
+                  className="w-12 h-12 rounded-full bg-amber-300 flex items-center justify-center"
+                />
 
-          {/* verifica se existe eyecatch na api */}
-          {a.eyecatch ? <Image src={a.eyecatch?.url} alt={a.title} width={300} height={400} /> : <NotAvailable />}
+                <div>
+                  <p className="font-medium text-gray-900">{author}</p>
+                  <p className="text-sm text-gray-500">{formattedDate}</p>
+                </div>
+              </div>
 
-          {/* verifica se existe categoria na api */}
-          {a.category ? (
-            <div className="my-4">
-              <CategoryBtn category={a.category.name} />
-            </div>
-          ) : null}
-        </ul>
-      ))}
-    </div>
+              {/* Conteúdo do post */}
+              <div
+                className="prose prose-lg prose-gray max-w-none prose-headings:font-bold prose-headings:text-gray-900 prose-p:text-gray-700 prose-p:leading-relaxed prose-a:text-amber-600 hover:prose-a:text-amber-700 prose-img:rounded-lg"
+                dangerouslySetInnerHTML={{ __html: content }}
+              />
+
+              {/* Categoria e Compartilhar */}
+              <div className="mt-12 pt-8 border-t border-gray-200 flex flex-col  justify-between gap-4">
+                {/* Categoria */}
+                <div className="flex gap-4">
+                  {hashtagsArray.map(tag => (
+                    <span key={tag} className="px-3 py-1 text-sm font-medium bg-amber-100 text-amber-800 rounded-full">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+
+                {/* Compartilhar */}
+                <div className="flex items-center gap-4">
+                  <span className="text-sm text-gray-500 mr-1">Compartilhar:</span>
+                  <ShareLinks />
+                </div>
+              </div>
+            </article>
+          )
+        })}
+      </div>
+    </>
   )
 }
 
