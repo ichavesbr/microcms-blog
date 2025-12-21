@@ -12,7 +12,6 @@ const Blog = async () => {
         <h1>Welcome</h1>
         <div className="flex gap-4 justify-center m-4 flex-wrap">oi</div>
         {dataApi.map((post: APIProps) => {
-          console.log(post)
           const { author, author_img, date, title, content, hashtags } = post
           const hashtagsArray = hashtags ? hashtags.split(",") : []
           const formattedDate = new Date(date).toLocaleDateString("pt-BR", {
@@ -48,10 +47,10 @@ const Blog = async () => {
                 dangerouslySetInnerHTML={{ __html: content }}
               />
 
-              {/* Categoria e Compartilhar */}
+              {/* Hashtags e Compartilhar */}
               <div className="mt-12 pt-8 border-t border-gray-200 flex flex-col  justify-between gap-4">
-                {/* Categoria */}
-                <div className="flex gap-4">
+                {/* Hashtags */}
+                <div className="flex flex-wrap gap-4">
                   {hashtagsArray.map(tag => (
                     <span key={tag} className="px-3 py-1 text-sm font-medium bg-amber-100 text-amber-800 rounded-full">
                       {tag}
@@ -60,7 +59,7 @@ const Blog = async () => {
                 </div>
 
                 {/* Compartilhar */}
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-4 mt-6">
                   <span className="text-sm text-gray-500 mr-1">Compartilhar:</span>
                   <ShareLinks />
                 </div>
