@@ -18,10 +18,10 @@ export default async function Home() {
 
             return (
               <article key={title} className="overflow-hidden pb-6 border-b border-gray-200">
-                <div className="flex flex-col sm:flex-row">
+                <div className="flex flex-col sm:flex-row items-center sm:gap-6 gap-3">
                   <Link
                     href={`/blog/${title}`}
-                    className="relative w-full h-48 sm:w-48 sm:h-40 md:w-64 md:h-40 lg:w-72 lg:h-48 shrink-0">
+                    className="relative w-full h-48 sm:w-48 sm:h-40 md:w-64 md:h-40 lg:w-72 lg:h-48 shrink-0 pl-4 pr-4 sm:pl-0 sm:pr-0">
                     <Image
                       src={author_img.url}
                       alt={title}
@@ -30,7 +30,7 @@ export default async function Home() {
                     />
                   </Link>
 
-                  <div className="p-4 sm:p-5 flex flex-col flex-1">
+                  <div className="pt-0 pb-4 px-0 sm:p-5 flex flex-col flex-1 h-full justify-start">
                     <div className="flex items-center gap-2">
                       <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900 line-clamp-2">
                         <a href={`/blog/${title}`} className="hover:text-amber-600 transition-colors">
