@@ -34,14 +34,14 @@ export default async function Home() {
                     <div className="flex items-center gap-2">
                       <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900 line-clamp-2">
                         <a href={`/blog/${title}`} className="hover:text-amber-600 transition-colors">
-                          {title}
+                          {title}{" "}
+                          {isNew && (
+                            <span className="text-red-500 text-base sm:text-lg font-extrabold tracking-widest uppercase shrink-0">
+                              NEW
+                            </span>
+                          )}
                         </a>
                       </h2>
-                      {isNew && (
-                        <span className="text-red-500 text-base sm:text-lg font-extrabold tracking-widest uppercase shrink-0">
-                          NEW
-                        </span>
-                      )}
                     </div>
 
                     <div className="w-12 h-0.5 bg-amber-500 my-2"></div>
