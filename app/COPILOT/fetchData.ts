@@ -1,8 +1,8 @@
 import { client } from "@/libs/client"
 
-const fetchData = async (queries = {}) => {
+const fetchData = async () => {
   try {
-    const data = await client.get({ endpoint: "blogs", queries })
+    const data = await client.get({ endpoint: "blogs" })
     return data.contents
   } catch (error) {
     console.error("Error fetching data:", error)
@@ -10,4 +10,4 @@ const fetchData = async (queries = {}) => {
   }
 }
 
-export default fetchData
+export { fetchData }
