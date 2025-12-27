@@ -3,37 +3,22 @@
 import { useSearchParams } from "next/navigation"
 
 const UnfilteredData = ({ data }) => {
-  return (
-    <>
-      {data.map(({ id, title }) => (
-        <div key={id}>{title}</div>
-      ))}
-    </>
-  )
+  const unfilteredArray = data.map(({ id, title }) => <div key={id}>{title}</div>)
+
+  return <div>{unfilteredArray}</div>
 }
 
 const FilteredData = ({ data, params }) => {
-  return (
-    <>
-      {/* terminar outro dia: verificar se tem algum titulo, conteudo etc igual ao params */}
-      {/* se sim, mostrar apenas os itens que forem iguais ao da pesquisa (params) */}
-      {data.filter(item => {
-        item.title.som === params ? item.title : <p>no data</p>
-      })}
-    </>
-  )
+  const filtered = data.filter(item => item.title.includes(params))
+  const filteredArray = filtered.map(item => <p key={item.id}>{item.title}</p>)
+
+  return <div>{filteredArray}</div>
 }
 
 const FilteredSearch = ({ data }) => {
   const params = useSearchParams().get("param") || ""
 
-  return (
-    <>
-      <UnfilteredData data={data} />
-      <FilteredData data={data} params={params} />
-      <p>oi</p>
-    </>
-  )
+  return <>{params === "" ? <UnfilteredData data={data} /> : <FilteredData data={data} params={params} />}</>
 }
 
 export { FilteredSearch }

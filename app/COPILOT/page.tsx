@@ -9,7 +9,7 @@ export default async function Home() {
     <main className="min-h-screen flex items-center justify-center">
       <form>
         <Input /> {/* recebe dados e atualiza url */}
-        <FilteredSearch data={data} />
+        <FilteredSearch data={data} /> {/* filtra dados e mostra resultado filtrado */}
       </form>
     </main>
   )
