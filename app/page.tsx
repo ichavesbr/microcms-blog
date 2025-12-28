@@ -11,7 +11,7 @@ export default function Home() {
   const [loading, setLoading] = useState(true)
   const isNew = true
 
-  // Busca inicial
+  // Toda vez que a pagina for carregada, busca a api e poe no state
   useEffect(() => {
     const fetchInitial = async () => {
       setLoading(true)
@@ -20,6 +20,7 @@ export default function Home() {
       setPosts(json.contents || [])
       setLoading(false)
     }
+
     fetchInitial()
   }, [])
 

@@ -8,8 +8,9 @@ const UnfilteredData = ({ data }) => {
   return <div>{unfilteredArray}</div>
 }
 
+// filtered by title or content
 const FilteredData = ({ data, params }) => {
-  const filtered = data.filter(item => item.title.includes(params))
+  const filtered = data.filter(item => item.title.includes(params) || item.content.includes(params))
   const filteredArray = filtered.map(item => <p key={item.id}>{item.title}</p>)
 
   return <div>{filteredArray}</div>
