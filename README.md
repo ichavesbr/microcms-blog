@@ -1,36 +1,66 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# microcms-blog
+
+A blog application built with [Next.js](https://nextjs.org) and [microCMS](https://microcms.io), styled with [Tailwind CSS](https://tailwindcss.com). Content is fetched from the microCMS headless CMS and rendered as a list of articles with social sharing support.
+
+## Tech Stack
+
+- **[Next.js](https://nextjs.org)** – React framework with App Router and React Compiler
+- **[microCMS JS SDK](https://github.com/microcmsio/microcms-js-sdk)** – Fetches blog content from microCMS
+- **[Tailwind CSS](https://tailwindcss.com)** – Utility-first styling
+- **[react-share](https://github.com/nygardk/react-share)** – Social share buttons (X/Twitter, Facebook, LINE, Hatena)
+- **TypeScript** – Full type safety across the project
 
 ## Getting Started
 
-First, run the development server:
+### 1. Set up environment variables
+
+Create a `.env.local` file at the project root with your microCMS credentials:
+
+```env
+MICROCMS_SERVICE_DOMAIN=your-service-domain
+MICROCMS_API_KEY=your-api-key
+```
+
+You can find these values in your [microCMS dashboard](https://app.microcms.io).
+
+### 2. Install dependencies
+
+```bash
+npm install
+```
+
+### 3. Run the development server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser to see the blog.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Available Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Script | Description |
+|--------|-------------|
+| `npm run dev` | Start the development server |
+| `npm run build` | Build the application for production |
+| `npm start` | Start the production server |
+| `npm run lint` | Run ESLint |
 
-## Learn More
+## microCMS API Schema
 
-To learn more about Next.js, take a look at the following resources:
+The `blogs` endpoint is expected to have the following fields:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+| Field | Type | Description |
+|-------|------|-------------|
+| `title` | string | Post title (also used as the URL slug) |
+| `content` | richtext | HTML post body |
+| `author` | string | Author name |
+| `author_img` | image | Author/cover image |
+| `date` | date | Publication date |
+| `hashtags` | string | Comma-separated tags |
 
 ## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The easiest way to deploy is with [Vercel](https://vercel.com/new). Add the `MICROCMS_SERVICE_DOMAIN` and `MICROCMS_API_KEY` environment variables in the Vercel project settings before deploying.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+See the [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
